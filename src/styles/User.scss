@@ -1,0 +1,125 @@
+$error-color:red;
+
+$primary-color:#1d1a69;
+$secondary-color:#ffffff;
+$border-color:#010000;
+
+
+@mixin alignment{
+    display: flex;
+    flex-direction: column;
+}
+@mixin height($height){
+    height:$height;
+}
+@mixin width($width){
+    width:$width;
+}
+@mixin fontSize($fontSize){
+    font-size: $fontSize;
+}
+@mixin alignment-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+.users-container {
+  @include alignment();
+  padding: 20px;
+}
+
+.user-headings {
+  @include alignment-row();
+  justify-content: space-between;
+  color: $secondary-color;
+}
+.user-main-heading {
+  @include fontSize(35px);
+  color: $primary-color;
+  margin-bottom: 20px;
+}
+
+.user-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.userbtn {
+  background-color: $primary-color;
+  @include width(100px);
+  @include height(40px);
+  margin-bottom: 10px;
+  color: $secondary-color;
+  margin-right: 20px;
+  @include fontSize(16px);
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+}
+.userbtn1{
+  background-color: $primary-color;
+  @include width(100px);
+  @include height(40px);
+  margin-bottom: 10px;
+  color: $secondary-color;
+  margin-right: 20px;
+  @include fontSize(16px);
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+}
+
+.user-table-container {
+  min-height: 58vh;
+
+  // overflow-y: auto;
+
+  .user-table {
+    background-color: $secondary-color;
+    @include width(100%);
+  }
+}
+
+.required {
+  color: $error-color;
+}
+.bi-check-circle-fill {
+  @include fontSize(30px);
+  @include height(30px);
+}
+.input-group,
+.form-group {
+  position: relative;
+}
+.bi-eye-fill,
+.bi-eye-slash-fill {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  z-index: 10;
+}
+.form-group .bi-eye-fill,
+.form-group .bi-eye-slash-fill {
+  top: 30px;
+}
+
+@media screen and (max-width: 600px) {
+  .user-headings {
+    flex-direction: column;
+  }
+  .user-main-heading {
+    @include fontSize(25px);
+  }
+  .userbtn {
+    @include width(65px);
+    @include fontSize(15px);
+  }
+  .userbtn1{
+    @include width(80px);
+    @include fontSize(15px);
+  }
+  .user-buttons {
+    margin-left: 20px;
+  }
+}
