@@ -24,8 +24,6 @@ const Register = () => {
     setUser({ ...user, [name]: value })
   }
 
-
-
   // Function to submit user registration
   const submitHandler = async (e) => {
     try {
