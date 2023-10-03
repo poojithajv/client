@@ -22,7 +22,11 @@ $border-color:#010000;
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
+}
+
+@mixin position {
+  position: relative;
+}
 
 .users-container {
   @include alignment();
@@ -122,4 +126,27 @@ $border-color:#010000;
   .user-buttons {
     margin-left: 20px;
   }
+}
+
+.header-container {
+  background-color: $primary-color;
+  color: $secondary-color;
+  @include height(10vh);
+  @include alignment-row();
+  justify-content: flex-end;
+  padding-right: 15px;
+  padding-left: 15px;
+  border: 1px solid $border-color;
+}
+
+.navbar-link {
+  align-self: flex-end;
+  @include position();
+  color: $secondary-color;
+  font-weight: bold;
+  @include fontSize(16px);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 15px;
+  transition: border-color 0.66s ease-out, font-size 0.3s ease-out;
 }

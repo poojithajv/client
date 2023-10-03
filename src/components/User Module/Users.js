@@ -1,9 +1,11 @@
 import React, { useState,useEffect } from 'react'
+import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getAllUsers } from '../../Redux/UserSlice'
+import Tooltip from "@mui/material/Tooltip";
 import toast from 'react-hot-toast';
 import { deleteUserbyid } from '../../Redux/UserSlice';
 import '../../styles/User.scss'
@@ -29,7 +31,7 @@ function Users() {
     }catch(err){
       console.log(err)
     }
-  },[])
+  },[dispatch])
 
   // Map the user data to a new array, adding an 'id' property
   let data = users.map((item, index) => ({ ...item, id: index + 1 }));
@@ -118,8 +120,8 @@ function Users() {
   // Function to handle row click and store selected row data
   const onRowHandleClick = (params) => {
     setSelectedRow(params.id);
-    setId(params?.row?._id)
-    localStorage.setItem('id',params?.row?._id)
+    setId(params?.row?.userId)
+    localStorage.setItem('id',params?.row?.userId)
     setDat(params?.row);
   };
   console.log(id)
@@ -128,7 +130,7 @@ function Users() {
     try{
       dispatch(deleteUserbyid(localStorage.getItem('id')))
       .then((res)=>{
-        if (res.payload==='User Deleted successfully'){
+        if (res.payload.message==='User Deleted successfully'){
           toast.success(res.payload.message)
           window.location.reload()
         }else{
@@ -141,8 +143,24 @@ function Users() {
     }
   }
   }
+
+  const handleLogout = () => {
+    let token = localStorage.getItem("accessToken");
+    if (token) {
+      localStorage.clear();
+      navigate("/login"); // Redirect user to the login page
+    }
+  };
   return (
-    <div className="users-container">
+    <div>
+      <div className="header-container">
+        <Tooltip title="Logout">
+          <p onClick={handleLogout} className="navbar-link">
+            <RiLogoutCircleRLine size={20} />
+          </p>
+        </Tooltip>
+      </div>
+      <div className="users-container">
         <div className="user-headings">
           <h1 className="user-main-heading">All Users</h1>
           <div className="user-buttons">
@@ -192,6 +210,7 @@ function Users() {
           )}
         </div>
       </div>
+    </div>
   )
 }
 
